@@ -1,4 +1,4 @@
-# f3-module-test-april-4
+# *F3-module-test-april-4*
 1. HTML file with date picker, current image container, and search history list.
 2. CSS file that styles the HTML elements.
 3. JavaScript file with all the functions.
