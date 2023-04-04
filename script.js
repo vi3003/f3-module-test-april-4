@@ -1,7 +1,7 @@
 // lif0dYtK9xpLwnIBOu9WL80rFT0Pn5oeVremXK2W
-let title = document.querySelector(".heading");
-let img1 = document.querySelector(".img");
-let pictureDetails = document.querySelector(".para");
+const Title = document.querySelector(".heading");
+const img_1 = document.querySelector(".img");
+const picture_details = document.querySelector(".Para");
 
 let arr = [];
 
@@ -15,21 +15,21 @@ function getCurrentImageOfTheDay(){
         })
         .then((data) => {
             console.log(data);
-            title.innerHTML = `<h1>NASA Picture of Day: ${data.date} </h1>`;
-            img1.innerHTML = `<img src="${data.hdurl}">`;
-            pictureDetails.innerHTML = `<h3>${data.title} </h3> <p> ${data.explanation} </p>`;
+            Title.innerHTML = `<h1>NASA Picture of Day: ${data.date} </h1>`;
+            img_1.innerHTML = `<img src="${data.hdurl}">`;
+            picture_details.innerHTML = `<h3>${data.title} </h3> <p> ${data.explanation} </p>`;
         })
     
     
 }
 getCurrentImageOfTheDay();
 
-let searchDate = document.querySelector("#search-input");
-let btn = document.querySelector("#search");
-btn.addEventListener("click", getImageOfTheDay);
+let search_date = document.querySelector("#search-input");
+let Btn = document.querySelector("#search");
+Btn.addEventListener("click", getImageOfTheDay);
 
 function getImageOfTheDay(){
-    let newDate = searchDate.value;
+    let newDate = search_date.value;
     alert(newDate);
     fetch(`https://api.nasa.gov/planetary/apod?api_key=lif0dYtK9xpLwnIBOu9WL80rFT0Pn5oeVremXK2W&date=${newDate}`)
         .then((res) => {
@@ -37,21 +37,21 @@ function getImageOfTheDay(){
         })
         .then((data) => {
             console.log(data);
-            title.innerHTML = `<h1>Picture On ${data.date} </h1>`;
-            img1.innerHTML = `<img src="${data.hdurl}">`;
-            pictureDetails.innerHTML = `<h3>${data.title} </h3> <p> ${data.explanation} </p>`;
+            Title.innerHTML = `<h1>Picture On ${data.date} </h1>`;
+            img_1.innerHTML = `<img src="${data.hdurl}">`;
+            picture_details.innerHTML = `<h3>${data.title} </h3> <p> ${data.explanation} </p>`;
         })
     
     saveSearch(newDate);
     // addSearchToHistory(newDate);
 }
-let searchResult = document.querySelector("#search-result");
+let searchResult = document.querySelector("#search-history");
 function saveSearch(newDate){
     arr.push(newDate);
     localStorage.setItem("searches", JSON.stringify(arr));
 
     // alert(newDate);
-    searchResult.innerHTML += `<h4 ><a onclick="getUserDate(${newDate})">${newDate}</a> <h4>`;
+    searchResult.innerHTML += `<li><a onclick="getUserDate(${newDate})">${newDate}</a> <li>`;
     // addSearchToHistory(newDate);
 }
 
@@ -71,8 +71,8 @@ function getUserDate(newDate){
         })
         .then((data) => {
             console.log(data);
-            title.innerHTML = `<h1>Picture On ${data.date} </h1>`;
-            img1.innerHTML = `<img src="${data.hdurl}">`;
-            pictureDetails.innerHTML = `<h3>${data.title} </h3> <p> ${data.explanation} </p>`;
+            Title.innerHTML = `<h1>Picture On ${data.date} </h1>`;
+            img_1.innerHTML = `<img src="${data.hdurl}">`;
+            picture_details.innerHTML = `<h3>${data.title} </h3> <p> ${data.explanation} </p>`;
         })
 }
