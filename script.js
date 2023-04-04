@@ -30,7 +30,7 @@ Btn.addEventListener("click", getImageOfTheDay);
 
 function getImageOfTheDay(){
     let newDate = search_date.value;
-    alert(newDate);
+    // alert(newDate);
     fetch(`https://api.nasa.gov/planetary/apod?api_key=lif0dYtK9xpLwnIBOu9WL80rFT0Pn5oeVremXK2W&date=${newDate}`)
         .then((res) => {
             return res.json();
@@ -43,34 +43,38 @@ function getImageOfTheDay(){
         })
     
     saveSearch(newDate);
-    // addSearchToHistory(newDate);
+    addSearchToHistory(newDate);
 }
 let searchResult = document.querySelector("#search-history");
+
 function saveSearch(newDate){
     arr.push(newDate);
     localStorage.setItem("searches", JSON.stringify(arr));
 
     // alert(newDate);
-    searchResult.innerHTML += `<li><a onclick="getUserDate(${newDate})">${newDate}</a> <li>`;
+    // searchResult.innerHTML += `<li><a onclick="getUserDate(${newDate})">${newDate}</a> <li>`;
     // addSearchToHistory(newDate);
 }
 
 
-// function addSearchToHistory(newDate){
-//     // let searchHistory = JSON.parse(localStorage.getItem("searches"));
-//     console.log();
+function addSearchToHistory(newDate){
+    let search_history = JSON.parse(localStorage.getItem("searches"));
+    const my_Html = search_history.map((item) => {
+    const temp = item.split("-");
 
-//     searchResult.innerHTML += `<h4 ><a onclick="getUserDate(${newDate})">${newDate}</a> <h4>`;
-// }
+    return`<li ><a href="#" onclick="getUserDate(${temp[0]},${temp[1]},${temp[2]})">${temp[0]}-${temp[1]}-${temp[2]}</a> <li>`;
+    })
+searchResult.innerHTML = my_Html.join(" ");
+}
 
-function getUserDate(newDate){
-    alert(newDate+2.1);
-    fetch(`https://api.nasa.gov/planetary/apod?api_key=lif0dYtK9xpLwnIBOu9WL80rFT0Pn5oeVremXK2W&date=${newDate+1}`)
+function getUserDate(year, month, date){
+    console.log(year, month, date);
+    fetch(`https://api.nasa.gov/planetary/apod?api_key=dmylZQirmdOEA2EO1mdEuEl3tnTjfffH9I8Ccj4Q&date=${year}-${month}-${date}`)
         .then((res) => {
             return res.json();
         })
         .then((data) => {
-            console.log(data);
+            console.log("udiwui",data);
             Title.innerHTML = `<h1>Picture On ${data.date} </h1>`;
             img_1.innerHTML = `<img src="${data.hdurl}">`;
             picture_details.innerHTML = `<h3>${data.title} </h3> <p> ${data.explanation} </p>`;
